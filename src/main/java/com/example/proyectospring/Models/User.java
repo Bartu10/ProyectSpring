@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -23,7 +25,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "user")
-    private List<Order> orders;
+    private Set<Order> orders = new HashSet<>();
 
     public User(){}
 

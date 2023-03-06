@@ -21,7 +21,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}/")
-    public  ResponseEntity<Object> show(@PathVariable("id") Integer id) {
+    public  ResponseEntity<Object> show(@PathVariable("id") Long id) {
         return new ResponseEntity<>(productRepository.findById(id), HttpStatus.OK);
     }
 
@@ -33,14 +33,14 @@ public class ProductController {
 
 
     @DeleteMapping("/products/{id}/")
-    public ResponseEntity<Object> delete(@PathVariable("id") Integer id) {
+    public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
         Optional<Product> product = productRepository.findById(id);
         product.ifPresent(value -> productRepository.delete(value));
         return new ResponseEntity<>(product.isPresent(), HttpStatus.OK);
     }
 
     @PutMapping("/products/{id}/")
-    public ResponseEntity<Object> update(@PathVariable("id") Integer id, @RequestBody Product product) {
+    public ResponseEntity<Object> update(@PathVariable("id") Long id, @RequestBody Product product) {
         Optional<Product> oldProduct = productRepository.findById(id);
         if(oldProduct.isPresent()) {
             product.setId(id);

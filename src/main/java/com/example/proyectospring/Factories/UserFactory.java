@@ -1,8 +1,5 @@
 package com.example.proyectospring.Factories;
-/*
-package com.example.proyectofinalspringboot.Factories;
-
-import com.example.proyectofinalspringboot.Models.User;
+import com.example.proyectospring.Models.User;
 import com.github.javafaker.Faker;
 
 import java.util.ArrayList;
@@ -24,6 +21,3 @@ public class UserFactory {
 
     }
     }
-
-
- */

@@ -1,30 +1,35 @@
 package com.example.proyectospring.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor
 public class ProductOrder {
     @Id
+    @GeneratedValue
     private Long id;
 
+    @JsonBackReference
     @ManyToOne
+    @JoinColumn()
     private Order order;
 
+    @JsonBackReference
     @ManyToOne
+    @JoinColumn()
     private Product product;
 
-    private Number Int;
+    private Integer cantidad;
 
-    public ProductOrder(){}
-
-    public ProductOrder(Order order, Product product){
+    public ProductOrder(Order order, Product product, Integer cantidad) {
         this.order = order;
         this.product = product;
+        this.cantidad = cantidad;
     }
 }
 

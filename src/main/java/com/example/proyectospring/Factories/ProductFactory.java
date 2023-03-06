@@ -1,4 +1,4 @@
-/*package com.example.proyectospring.Factories;
+package com.example.proyectospring.Factories;
 
 import com.example.proyectospring.Models.Product;
 import com.github.javafaker.Faker;
@@ -18,8 +18,8 @@ public class ProductFactory {
                     esFaker.name().firstName(),
                     esFaker.team().name(),
                     esFaker.number().numberBetween(1,100),
-                    esFaker.number().numberBetween(1970,2023),
                     "buen estado"));
+
 
         return products;
 
@@ -29,5 +29,5 @@ public class ProductFactory {
 
 
 }
-*/
+
 
