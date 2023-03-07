@@ -16,7 +16,6 @@ public class UserFactory {
                     esFaker.name().username(),
                     esFaker.internet().emailAddress(),
                     esFaker.internet().password()));
-
         return users;
 
     }
