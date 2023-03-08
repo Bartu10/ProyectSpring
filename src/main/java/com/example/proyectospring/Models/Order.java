@@ -14,7 +14,6 @@ import java.util.Set;
 @Table(name = "order")
 @Entity @Getter @Setter
 public class Order {
-
     @Id
     @GeneratedValue
     private Long id;

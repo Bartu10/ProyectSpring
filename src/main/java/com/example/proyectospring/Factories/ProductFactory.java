@@ -2,11 +2,12 @@ package com.example.proyectospring.Factories;
 
 import com.example.proyectospring.Models.Product;
 import com.github.javafaker.Faker;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
+@Component
 public class ProductFactory {
 
     Faker esFaker = new Faker(new Locale("es-ES"));
