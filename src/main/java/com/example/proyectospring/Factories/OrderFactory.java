@@ -8,17 +8,19 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
- @Component
+import java.util.Random;
+
+@Component
 public class OrderFactory {
 
     Faker esFaker = new Faker(new Locale("es-ES"));
-
-    public List<Order> get(int number) {
+    Random rand = new Random();
+    public List<Order> get(int number, List<User> users) {
         List<Order> orders = new ArrayList<>();
+
         for (int i = 0; i <number; i++)
             orders.add(new Order(
-                    "10/10/2004", 20L,
-                    new User("javi","bartuu","jfue@fije","93ui3")
+                    "10/10/2023", (long) esFaker.number().numberBetween(1,20),users.get(rand.nextInt())
             ));
         return orders;
 

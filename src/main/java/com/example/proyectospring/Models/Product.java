@@ -31,7 +31,6 @@ public class Product {
         this.description = description;
         this.price = price;
         this.state = state;
-        this.productsOrder = (Set<ProductOrder>) productsOrder;
     }
 }
 
