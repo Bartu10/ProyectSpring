@@ -17,11 +17,11 @@ public class ProductOrderFactory {
 
     Faker esFaker = new Faker(new Locale("es-ES"));
     Random rand = new Random();
-    public List<ProductOrder> get(int number, List<Order> orders, List<Product> products) {
+    public List<ProductOrder> get(int number, Order orders, Product products) {
         List<ProductOrder> productOrders = new ArrayList<>();
         for (int i = 0; i < number; i++)
             productOrders.add(new ProductOrder(
-            orders.get(rand.nextInt()), products.get(rand.nextInt()),esFaker.number().numberBetween(1,30))
+            orders, products,esFaker.number().numberBetween(1,30))
             );
         return productOrders;
 

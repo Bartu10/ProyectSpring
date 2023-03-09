@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Product {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String description;

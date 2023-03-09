@@ -15,13 +15,13 @@ public class OrderFactory {
 
     Faker esFaker = new Faker(new Locale("es-ES"));
     Random rand = new Random();
-    public List<Order> get(int number, List<User> users) {
+    public List<Order> get(int number, User users) {
         List<Order> orders = new ArrayList<>();
 
         for (int i = 0; i <number; i++)
             orders.add(new Order(
-                    "10/10/2023", (long) esFaker.number().numberBetween(1,20),users.get(rand.nextInt())
-            ));
+                    "10/10/2023", (long) esFaker.number().numberBetween(1,20), users)
+            );
         return orders;
 
     }

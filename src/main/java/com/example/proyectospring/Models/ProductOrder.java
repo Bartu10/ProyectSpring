@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ProductOrder {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
 
     @JsonBackReference
