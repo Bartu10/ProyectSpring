@@ -28,7 +28,7 @@ public class Order {
     @JoinColumn()
     private User user;
 
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "order")
     private Set<ProductOrder> orders = new HashSet<>();
 

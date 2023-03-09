@@ -12,7 +12,7 @@ public class UserFactory {
 
     public List<User> get(int number) {
         List<User> users = new ArrayList<>();
-        for (int i = 0; i <number; i++)
+        for (int i = 0; i < number; i++)
             users.add(new User(esFaker.name().firstName(),
                     esFaker.name().username(),
                     esFaker.internet().emailAddress(),
