@@ -13,7 +13,7 @@ import java.util.Random;
 @Component
 public class OrderFactory {
 
-    Faker esFaker = new Faker(new Locale("es-ES"));
+    Faker esFaker = new Faker();
     Random rand = new Random();
     public List<Order> get(int number, User users) {
         List<Order> orders = new ArrayList<>();

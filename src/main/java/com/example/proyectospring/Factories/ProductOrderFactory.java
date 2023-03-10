@@ -15,7 +15,7 @@ import java.util.Random;
 public class ProductOrderFactory {
 
 
-    Faker esFaker = new Faker(new Locale("es-ES"));
+    Faker esFaker = new Faker();
     Random rand = new Random();
     public List<ProductOrder> get(int number, Order orders, Product products) {
         List<ProductOrder> productOrders = new ArrayList<>();

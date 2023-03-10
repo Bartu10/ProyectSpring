@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Locale;
 @Component
 public class UserFactory {
-    Faker esFaker = new Faker(new Locale("es-ES"));
+    Faker esFaker = new Faker();
 
     public List<User> get(int number) {
         List<User> users = new ArrayList<>();

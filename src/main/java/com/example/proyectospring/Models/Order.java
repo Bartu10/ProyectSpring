@@ -23,12 +23,12 @@ public class Order {
     private Long price;
 
     /*@JsonIgnoreProperties("orders")*/
-    @JsonBackReference
+    @JsonBackReference(value= "orders")
     @ManyToOne
     @JoinColumn()
     private User user;
 
-    @JsonBackReference
+    @JsonBackReference(value= "product-order")
     @OneToMany(mappedBy = "order")
     private Set<ProductOrder> orders = new HashSet<>();
 

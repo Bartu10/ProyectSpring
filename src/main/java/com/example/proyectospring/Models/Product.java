@@ -1,5 +1,6 @@
 package com.example.proyectospring.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class Product {
     private Integer price;
     private String state;
 
-    @JsonManagedReference
+    @JsonManagedReference(value= "product")
     @OneToMany(mappedBy = "product")
     private Set<ProductOrder> productsOrder = new HashSet<>();
 

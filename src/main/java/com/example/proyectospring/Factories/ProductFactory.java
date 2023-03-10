@@ -10,7 +10,7 @@ import java.util.Locale;
 @Component
 public class ProductFactory {
 
-    Faker esFaker = new Faker(new Locale("es-ES"));
+    Faker esFaker = new Faker();
 
     public List<Product> get(int number) {
         List<Product> products = new ArrayList<>();

@@ -14,12 +14,12 @@ public class ProductOrder {
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
 
-    @JsonBackReference
+    @JsonBackReference(value= "product-order")
     @ManyToOne
     @JoinColumn()
     private Order order;
 
-    @JsonBackReference
+    @JsonBackReference(value= "product")
     @ManyToOne
     @JoinColumn()
     private Product product;

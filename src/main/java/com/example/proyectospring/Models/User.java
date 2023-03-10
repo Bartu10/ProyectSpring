@@ -31,8 +31,7 @@ public class User {
 
     private String password;
 
-    @JsonBackReference
-
+    @JsonBackReference(value= "orders")
     @OneToMany(mappedBy = "user")
     private Set<Order> orders = new HashSet<>();
 
