@@ -32,7 +32,7 @@ public class User {
     private String password;
 
     @JsonBackReference(value= "orders")
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Order> orders = new HashSet<>();
 
     public User(String name, String username, String email, String password){

@@ -24,7 +24,7 @@ public class Product {
     private String state;
 
     @JsonManagedReference(value= "product")
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<ProductOrder> productsOrder = new HashSet<>();
 
     public Product(String name, String description, Integer price, String state) {

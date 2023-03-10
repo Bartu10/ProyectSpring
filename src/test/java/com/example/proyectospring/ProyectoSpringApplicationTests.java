@@ -115,8 +115,10 @@ class ProyectoSpringApplicationTests {
 
         long userCount = userRepository.count();
 
-        mvc.perform(delete("/users/1").contentType(MediaType.APPLICATION_JSON)
+
+        mvc.perform(delete("/users/1/").contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + authenticate()));
+
 
         assert userRepository.count() == userCount - 1;
     }

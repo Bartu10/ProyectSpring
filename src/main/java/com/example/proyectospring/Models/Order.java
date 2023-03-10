@@ -29,7 +29,7 @@ public class Order {
     private User user;
 
     @JsonBackReference(value= "product-order")
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<ProductOrder> orders = new HashSet<>();
 
     public Order(String fecha, Long price, User user){
