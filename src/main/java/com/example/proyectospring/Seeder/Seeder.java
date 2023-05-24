@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -50,7 +49,7 @@ public class Seeder implements CommandLineRunner {
     @Override
     public void run(String... args){
         Random random = new Random();
-    User user1 = new User("javi", "bartu", "javi@gmail.com", "123");
+    User user1 = new User("javi", "bartu", "javi@gmail.com", "123", "https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg");
         /*    userRepository.saveAll(testUser);*/
     userRepository.save(user1);
     List<Product> products = productFactory.get(20);
@@ -61,7 +60,7 @@ public class Seeder implements CommandLineRunner {
     Order elementoAleatorio = orders.get(indiceAleatorio);
         int indiceAleatorio2 = random.nextInt(products.size());
         Product elementoAleatorio2 = products.get(indiceAleatorio2);
-    List<ProductOrder> productOrders = productOrderFactory.get(10, elementoAleatorio, elementoAleatorio2);
+    List<ProductOrder> productOrders = productOrderFactory.get(10, orders.get(1), products.get(1));
     productOrderRepository.saveAll(productOrders);
 
 

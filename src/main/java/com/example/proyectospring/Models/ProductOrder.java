@@ -1,6 +1,7 @@
 package com.example.proyectospring.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,17 +15,19 @@ public class ProductOrder {
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
 
-    @JsonBackReference(value= "product-order")
+    @JsonBackReference()
     @ManyToOne
     @JoinColumn()
     private Order order;
 
-    @JsonBackReference(value= "product")
+    @JsonManagedReference()
     @ManyToOne
     @JoinColumn()
     private Product product;
 
     private Integer cantidad;
+
+
 
     public ProductOrder(Order order, Product product, Integer cantidad) {
         this.order = order;

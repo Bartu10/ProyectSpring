@@ -4,6 +4,7 @@ import com.example.proyectospring.Models.Order;
 import com.example.proyectospring.Models.Product;
 import com.example.proyectospring.Models.ProductOrder;
 import com.example.proyectospring.Models.User;
+import com.example.proyectospring.Repositories.ProductRepository;
 import com.github.javafaker.Faker;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ public class ProductOrderFactory {
     Random rand = new Random();
     public List<ProductOrder> get(int number, Order orders, Product products) {
         List<ProductOrder> productOrders = new ArrayList<>();
+
         for (int i = 0; i < number; i++)
             productOrders.add(new ProductOrder(
             orders, products,esFaker.number().numberBetween(1,30))

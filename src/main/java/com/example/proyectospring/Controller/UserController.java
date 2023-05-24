@@ -5,7 +5,9 @@ import com.example.proyectospring.Models.User;
 import com.example.proyectospring.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -23,6 +25,12 @@ public class UserController {
     @GetMapping("/users/{id}/")
     public  ResponseEntity<Object> show(@PathVariable("id") Long id) {
         return new ResponseEntity<>(userRepository.findById(id), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/users/mail/{email}/")
+    public ResponseEntity<Object> show(@PathVariable("email") String email){
+        return new ResponseEntity<>(userRepository.findByEmail(email), HttpStatus.OK);
     }
 
     @PostMapping("/users/create")
@@ -48,5 +56,33 @@ public class UserController {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+    }
+/*
+    @GetMapping("/users/email/{email}/")
+    public ResponseEntity<Object> show(@PathVariable("email") String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+    */
+
+    @PostMapping(value = "/users/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> login(@RequestBody User user) {
+        // Check if user exists in database
+        User existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+        }
+
+        // Check if password is correct
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (!encoder.matches(user.getPassword(), existingUser.getPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+        }
+
+        // If user exists and password is correct, return a success response
+        return ResponseEntity.status(HttpStatus.OK).body("Login successful");
     }
 }

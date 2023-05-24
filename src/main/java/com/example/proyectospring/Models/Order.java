@@ -23,14 +23,14 @@ public class Order {
     private Long price;
 
     /*@JsonIgnoreProperties("orders")*/
-    @JsonBackReference(value= "orders")
     @ManyToOne
     @JoinColumn()
     private User user;
 
-    @JsonBackReference(value= "product-order")
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private Set<ProductOrder> orders = new HashSet<>();
+    private Set<ProductOrder> products = new HashSet<>();
+
+
 
     public Order(String fecha, Long price, User user){
         this.fecha = fecha;

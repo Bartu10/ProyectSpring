@@ -7,11 +7,13 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,6 +34,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -54,7 +58,9 @@ public class SecurityConfig extends WebSecurityConfiguration {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
+				.cors().configurationSource(corsConfigurationSource()).and()
 				.csrf(AbstractHttpConfigurer::disable)
+				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS).permitAll())
 				.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
@@ -72,7 +78,9 @@ public class SecurityConfig extends WebSecurityConfiguration {
 	@Bean
 	public SecurityFilterChain tokenSecurityFilterChain(HttpSecurity http) throws Exception {
 		return http
+				.cors().configurationSource(corsConfigurationSource()).and()
 				.securityMatcher("/token**")
+				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS).permitAll())
 				.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.csrf(AbstractHttpConfigurer::disable)
@@ -93,16 +101,22 @@ public class SecurityConfig extends WebSecurityConfiguration {
 		return new NimbusJwtEncoder(jwks);
 	}
 
+
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(List.of("*"));
 		configuration.setAllowedHeaders(List.of("*"));
-		configuration.setAllowedMethods(List.of("GET"));
+		configuration.setAllowedMethods(List.of("GET","POST", "OPTIONS", "DELETE"));
+		configuration.addAllowedHeader("Acc	ess-Control-Allow-Headers");
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
+
+
+
+
 
 	@Bean
 	public static PasswordEncoder passwordEncoder() {

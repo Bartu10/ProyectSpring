@@ -8,6 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,6 +27,17 @@ public class ProductController {
     @GetMapping("/products/{id}/")
     public  ResponseEntity<Object> show(@PathVariable("id") Long id) {
         return new ResponseEntity<>(productRepository.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/products/year/{yr}")
+    public ResponseEntity<Object> show(@PathVariable("yr") String yr){
+        List<Product> product = productRepository.findByYr(yr);
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    @GetMapping("/products/retro/{retro}")
+    public ResponseEntity<Object> show(@PathVariable("retro") Boolean retro ){
+        return new ResponseEntity<>(productRepository.findByRetro(retro), HttpStatus.OK);
     }
 
     @PostMapping("/products/create")
@@ -49,4 +64,7 @@ public class ProductController {
         }
         return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
     }
+
+
+
 }

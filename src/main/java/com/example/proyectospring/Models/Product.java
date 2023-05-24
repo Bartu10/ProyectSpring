@@ -1,12 +1,10 @@
 package com.example.proyectospring.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,16 +20,35 @@ public class Product {
     private String description;
     private Integer price;
     private String state;
+    private String yr;
 
-    @JsonManagedReference(value= "product")
+    private Boolean retro;
+    private String team;
+    private String img;
+    private Integer XL;
+    private Integer L;
+    private Integer M;
+    private Integer S;
+
+    @JsonBackReference(value= "product")
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<ProductOrder> productsOrder = new HashSet<>();
 
-    public Product(String name, String description, Integer price, String state) {
+    public Product(String name, String description, Integer price, String state, String yr, Boolean retro, String team,String img, Integer XL, Integer L, Integer M, Integer S) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.state = state;
+        this.yr = yr;
+        this.retro = retro;
+        this.team = team;
+        this.img = img;
+        this.XL = XL;
+        this.L = L;
+        this.M = M;
+        this.S = S;
+
+
     }
 }
 
