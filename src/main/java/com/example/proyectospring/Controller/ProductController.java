@@ -2,10 +2,14 @@ package com.example.proyectospring.Controller;
 
 
 import com.example.proyectospring.Models.Product;
+import com.example.proyectospring.Models.User;
 import com.example.proyectospring.Repositories.ProductRepository;
+import com.example.proyectospring.dto.ProductDto;
+import com.example.proyectospring.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.Path;
@@ -41,10 +45,25 @@ public class ProductController {
     }
 
     @PostMapping("/products/create")
-    public ResponseEntity<Object> create(@RequestBody Product product) {
-        productRepository.save(product);
+    public ResponseEntity<Object> create(@RequestBody ProductDto product) {
+        Product newProduct=new Product();
+        newProduct.setName(product.getName());
+        newProduct.setDescription(product.getDescription());
+        newProduct.setPrice(product.getPrice());
+        newProduct.setRetro(product.getRetro());
+        newProduct.setState(product.getState());
+        newProduct.setImg(product.getImg());
+        newProduct.setYr(product.getYr());
+        newProduct.setTeam(product.getTeam());
+        newProduct.setXL(product.getXL());
+        newProduct.setL(product.getL());
+        newProduct.setM(product.getM());
+        newProduct.setS(product.getS());
+        productRepository.save(newProduct);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
+
+
 
 
     @DeleteMapping("/products/{id}/")

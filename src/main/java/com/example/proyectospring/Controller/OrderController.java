@@ -1,12 +1,18 @@
 package com.example.proyectospring.Controller;
 import com.example.proyectospring.Models.Order;
+import com.example.proyectospring.Models.ProductOrder;
+import com.example.proyectospring.Models.User;
 import com.example.proyectospring.Repositories.OrderRepository;
+import com.example.proyectospring.dto.OrderDto;
+import com.example.proyectospring.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class OrderController {
@@ -24,9 +30,12 @@ public class OrderController {
     }
 
     @PostMapping("/orders/create")
-    public ResponseEntity<Object> create(@RequestBody Order order) {
-        orderRepository.save(order);
-        return new ResponseEntity<>(order, HttpStatus.OK);
+    public ResponseEntity<Object> create(@RequestBody OrderDto orderDto) {
+        Order newOrder=new Order();
+        newOrder.setFecha(orderDto.getFecha());
+        newOrder.setPrice(orderDto.getPrice());
+        orderRepository.save(newOrder);
+        return new ResponseEntity<>(newOrder, HttpStatus.OK);
     }
 
 

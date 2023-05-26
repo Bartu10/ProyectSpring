@@ -3,6 +3,7 @@ package com.example.proyectospring.Controller;
 
 import com.example.proyectospring.Models.User;
 import com.example.proyectospring.Repositories.UserRepository;
+import com.example.proyectospring.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,18 +34,23 @@ public class UserController {
         return new ResponseEntity<>(userRepository.findByEmail(email), HttpStatus.OK);
     }
 
-    @PostMapping("/users/create")
-    public ResponseEntity<Object> create(@RequestBody User user) {
-        userRepository.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-
     @DeleteMapping("/users/{id}/")
     public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
         Optional<User> user = userRepository.findById(id);
         user.ifPresent(value -> userRepository.delete(value));
         return new ResponseEntity<>(user.isPresent(), HttpStatus.OK);
+    }
+
+    @PostMapping("/users/create")
+    public ResponseEntity<Object> create(@RequestBody UserDto user) {
+        User newUser=new User();
+        newUser.setName(user.getName());
+        newUser.setUsername(user.getUsername());
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        newUser.setS(user.getS());
+        userRepository.save(newUser);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PutMapping("/users/{id}/")
@@ -68,8 +74,8 @@ public class UserController {
     }
     */
 
-    @PostMapping(value = "/users/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> login(@RequestBody User user) {
+    @PostMapping(value = "/users/login")
+    public ResponseEntity<Object> login(@RequestBody UserDto user) {
         // Check if user exists in database
         User existingUser = userRepository.findByEmail(user.getEmail());
         if (existingUser == null) {
@@ -83,6 +89,6 @@ public class UserController {
         }
 
         // If user exists and password is correct, return a success response
-        return ResponseEntity.status(HttpStatus.OK).body("Login successful");
+        return ResponseEntity.status(HttpStatus.OK).body(existingUser);
     }
 }

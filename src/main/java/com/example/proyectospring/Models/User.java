@@ -1,12 +1,14 @@
 package com.example.proyectospring.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,11 +17,14 @@ import java.util.Set;
 @Setter
 @Table(name = "usercustom")
 @NoArgsConstructor
-public class User {
+public class User implements Serializable {
 
+
+    @JsonBackReference
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
+
 
     private String name;
 
@@ -31,7 +36,7 @@ public class User {
 
     private String s;
 
-    @JsonBackReference(value= "orders")
+    @JsonManagedReference(value= "user-order")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Order> orders = new HashSet<>();
 

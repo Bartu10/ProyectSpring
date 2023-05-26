@@ -1,16 +1,13 @@
 package com.example.proyectospring.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 @NoArgsConstructor
 @Table(name = "orders")
@@ -23,12 +20,14 @@ public class Order {
     private Long price;
 
     /*@JsonIgnoreProperties("orders")*/
+    @JsonBackReference("order-user")
     @ManyToOne
-    @JoinColumn()
+    @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonManagedReference("order-productOrder")
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private Set<ProductOrder> products = new HashSet<>();
+    private Set<ProductOrder> productOrders = new HashSet<>();
 
 
 

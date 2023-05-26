@@ -1,7 +1,12 @@
 package com.example.proyectospring.Controller;
 
+import com.example.proyectospring.Models.Order;
+import com.example.proyectospring.Models.Product;
 import com.example.proyectospring.Models.ProductOrder;
 import com.example.proyectospring.Repositories.ProductOrderRepository;
+import com.example.proyectospring.dto.OrderDto;
+import com.example.proyectospring.dto.ProductDto;
+import com.example.proyectospring.dto.ProductOrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +30,14 @@ public class ProductOrderController {
     }
 
     @PostMapping("/productsOrder/create")
-    public ResponseEntity<Object> create(@RequestBody ProductOrder productOrder) {
-        productOrderRepository.save(productOrder);
-        return new ResponseEntity<>(productOrder, HttpStatus.OK);
+    public ResponseEntity<Object> create(@RequestBody ProductOrderDto productOrderDto) {
+        ProductOrder newProductOrder = new ProductOrder();
+
+        newProductOrder.setCantidad(productOrderDto.getCantidad());
+        return new ResponseEntity<>(productOrderDto, HttpStatus.OK);
     }
+
+
 
 
     @DeleteMapping("/productsOrder/{id}/")

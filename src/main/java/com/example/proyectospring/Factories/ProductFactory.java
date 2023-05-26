@@ -18,7 +18,7 @@ public class ProductFactory {
         for (int i = 0; i <number; i++)
             products.add(new Product(
                     esFaker.name().firstName(),
-                    lorem.paragraph(3),
+                    lorem.paragraph(2),
                     esFaker.number().numberBetween(1,100),
                     "buen estado",
                     "1990",

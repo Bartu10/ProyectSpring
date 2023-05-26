@@ -108,7 +108,7 @@ public class SecurityConfig extends WebSecurityConfiguration {
 		configuration.setAllowedOrigins(List.of("*"));
 		configuration.setAllowedHeaders(List.of("*"));
 		configuration.setAllowedMethods(List.of("GET","POST", "OPTIONS", "DELETE"));
-		configuration.addAllowedHeader("Acc	ess-Control-Allow-Headers");
+		configuration.addAllowedHeader("Access-Control-Allow-Headers");
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;

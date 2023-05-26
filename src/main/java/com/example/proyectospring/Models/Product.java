@@ -1,11 +1,15 @@
 package com.example.proyectospring.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Table(name = "products")
@@ -30,9 +34,9 @@ public class Product {
     private Integer M;
     private Integer S;
 
-    @JsonBackReference(value= "product")
+    @JsonBackReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<ProductOrder> productsOrder = new HashSet<>();
+    private List<ProductOrder> productOrders = new ArrayList<>();
 
     public Product(String name, String description, Integer price, String state, String yr, Boolean retro, String team,String img, Integer XL, Integer L, Integer M, Integer S) {
         this.name = name;
