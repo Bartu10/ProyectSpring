@@ -23,7 +23,6 @@ public class ProductDto implements Serializable{
     private Integer M;
     private Integer S;
 
-    private List<ProductOrderDto> productOrders;
 
 }
 

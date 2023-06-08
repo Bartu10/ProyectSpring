@@ -1,6 +1,7 @@
 package com.example.proyectospring.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,7 +26,6 @@ public class Product {
     private Integer price;
     private String state;
     private String yr;
-
     private Boolean retro;
     private String team;
     private String img;
@@ -34,7 +34,7 @@ public class Product {
     private Integer M;
     private Integer S;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductOrder> productOrders = new ArrayList<>();
 

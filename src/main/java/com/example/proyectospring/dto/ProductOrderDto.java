@@ -11,6 +11,8 @@ import java.io.Serializable;
 @Setter
 public class ProductOrderDto implements Serializable {
 
+    private Long orderid;
+    private Long productid;
     private Integer cantidad;
 
 

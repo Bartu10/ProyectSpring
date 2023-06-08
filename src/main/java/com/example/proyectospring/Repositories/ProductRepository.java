@@ -9,5 +9,12 @@ import java.util.List;
 
 public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product>findByYr(String yr);
+
     List<Product>findByRetro(Boolean retro);
+
+    List<Product>findByTeam(String team);
+
+    List<Product>findByState(String state);
+
+
 }

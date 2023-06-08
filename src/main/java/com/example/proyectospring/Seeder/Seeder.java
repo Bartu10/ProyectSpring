@@ -12,6 +12,7 @@ import com.example.proyectospring.Repositories.OrderRepository;
 import com.example.proyectospring.Repositories.ProductOrderRepository;
 import com.example.proyectospring.Repositories.ProductRepository;
 import com.example.proyectospring.Repositories.UserRepository;
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -49,10 +50,11 @@ public class Seeder implements CommandLineRunner {
     @Override
     public void run(String... args){
         Random random = new Random();
-    User user1 = new User("javi", "bartu", "javi@gmail.com", "123", "https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg");
+        Faker faker = new Faker();
+    User user1 = new User("javi", "bartu", "javi@gmail.com", true ,"123", "64771822806eca2700dc8b2c");
         /*    userRepository.saveAll(testUser);*/
     userRepository.save(user1);
-    List<Product> products = productFactory.get(20);
+    List<Product> products = productFactory.get(50);
     productRepository.saveAll(products);
     List<Order> orders = orderFactory.get(20, user1);
     orderRepository.saveAll(orders);

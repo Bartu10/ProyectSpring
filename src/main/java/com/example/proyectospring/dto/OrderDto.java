@@ -21,7 +21,7 @@ import java.util.Set;
 public class OrderDto implements Serializable {
     private String fecha;
     private Long price;
-
+    private Long userid;
 
 
 

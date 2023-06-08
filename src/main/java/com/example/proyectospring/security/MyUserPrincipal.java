@@ -3,8 +3,10 @@ package com.example.proyectospring.security;
 import com.example.proyectospring.Models.User;
 import org.springframework.security.core.GrantedAuthority;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class MyUserPrincipal implements UserDetails {
@@ -16,7 +18,11 @@ public class MyUserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        ArrayList<GrantedAuthority> result = new ArrayList<>();
+        if(user.isAdmin())
+            result.add(new SimpleGrantedAuthority("ADMIN"));
+        return result;
+
     }
 
     @Override

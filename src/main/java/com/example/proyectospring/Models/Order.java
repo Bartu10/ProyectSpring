@@ -1,6 +1,7 @@
 package com.example.proyectospring.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,12 +21,13 @@ public class Order {
     private Long price;
 
     /*@JsonIgnoreProperties("orders")*/
-    @JsonBackReference("order-user")
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @JsonManagedReference("order-productOrder")
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<ProductOrder> productOrders = new HashSet<>();
 

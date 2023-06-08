@@ -14,9 +14,8 @@ public class UserDto implements Serializable {
     private String name;
     private String username;
     private String email;
+    private Boolean admin;
     private String password;
-    private String s;
-    private List<OrderDto> orders;
 
 
 }

@@ -3,11 +3,13 @@ import com.example.proyectospring.Models.Order;
 import com.example.proyectospring.Models.ProductOrder;
 import com.example.proyectospring.Models.User;
 import com.example.proyectospring.Repositories.OrderRepository;
+import com.example.proyectospring.Repositories.UserRepository;
 import com.example.proyectospring.dto.OrderDto;
 import com.example.proyectospring.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,9 @@ import java.util.Set;
 public class OrderController {
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/orders/")
     public ResponseEntity<Object> index() {
@@ -32,14 +37,19 @@ public class OrderController {
     @PostMapping("/orders/create")
     public ResponseEntity<Object> create(@RequestBody OrderDto orderDto) {
         Order newOrder=new Order();
+        User user = userRepository.findById(orderDto.getUserid()).get();
+
+        newOrder.setUser(user);
         newOrder.setFecha(orderDto.getFecha());
         newOrder.setPrice(orderDto.getPrice());
+
         orderRepository.save(newOrder);
         return new ResponseEntity<>(newOrder, HttpStatus.OK);
     }
 
 
     @DeleteMapping("/orders/{id}/")
+    @PreAuthorize("hasRole('SCOPE_ADMIN')")
     public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
         Optional<Order> order = orderRepository.findById(id);
         order.ifPresent(value -> orderRepository.delete(value));
@@ -47,6 +57,7 @@ public class OrderController {
     }
 
     @PutMapping("/orders/{id}/")
+    @PreAuthorize("hasRole('SCOPE_ADMIN')")
     public ResponseEntity<Object> update(@PathVariable("id") Long id, @RequestBody Order order) {
         Optional<Order> oldOrder = orderRepository.findById(id);
         if(oldOrder.isPresent()) {

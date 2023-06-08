@@ -3,13 +3,16 @@ package com.example.proyectospring.Controller;
 import com.example.proyectospring.Models.Order;
 import com.example.proyectospring.Models.Product;
 import com.example.proyectospring.Models.ProductOrder;
+import com.example.proyectospring.Repositories.OrderRepository;
 import com.example.proyectospring.Repositories.ProductOrderRepository;
+import com.example.proyectospring.Repositories.ProductRepository;
 import com.example.proyectospring.dto.OrderDto;
 import com.example.proyectospring.dto.ProductDto;
 import com.example.proyectospring.dto.ProductOrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -18,6 +21,11 @@ import java.util.Optional;
 public class ProductOrderController {
     @Autowired
     ProductOrderRepository productOrderRepository;
+    @Autowired
+    OrderRepository orderRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @GetMapping("/productsOrder/")
     public ResponseEntity<Object> index() {
@@ -31,9 +39,15 @@ public class ProductOrderController {
 
     @PostMapping("/productsOrder/create")
     public ResponseEntity<Object> create(@RequestBody ProductOrderDto productOrderDto) {
-        ProductOrder newProductOrder = new ProductOrder();
+        Product product = productRepository.findById(productOrderDto.getProductid()).get();
+        Order order = orderRepository.findById(productOrderDto.getOrderid()).get();
 
+        ProductOrder newProductOrder = new ProductOrder();
+        newProductOrder.setOrder(order);
+        newProductOrder.setProduct(product);
         newProductOrder.setCantidad(productOrderDto.getCantidad());
+        productOrderRepository.save(newProductOrder);
+
         return new ResponseEntity<>(productOrderDto, HttpStatus.OK);
     }
 
@@ -41,6 +55,7 @@ public class ProductOrderController {
 
 
     @DeleteMapping("/productsOrder/{id}/")
+    @PreAuthorize("hasRole('SCOPE_ADMIN')")
     public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
         Optional<ProductOrder> productOrder = productOrderRepository.findById(id);
         productOrder.ifPresent(value -> productOrderRepository.delete(value));
@@ -48,6 +63,7 @@ public class ProductOrderController {
     }
 
     @PutMapping("/productsOrder/{id}/")
+    @PreAuthorize("hasRole('SCOPE_ADMIN')")
     public ResponseEntity<Object> update(@PathVariable("id") Long id, @RequestBody ProductOrder productOrder) {
         Optional<ProductOrder> oldProductOrder = productOrderRepository.findById(id);
         if(oldProductOrder.isPresent()) {
