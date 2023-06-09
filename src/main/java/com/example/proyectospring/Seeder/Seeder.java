@@ -1,3 +1,4 @@
+/*
 package com.example.proyectospring.Seeder;
 
 import com.example.proyectospring.Factories.OrderFactory;
@@ -52,7 +53,7 @@ public class Seeder implements CommandLineRunner {
         Random random = new Random();
         Faker faker = new Faker();
     User user1 = new User("javi", "bartu", "javi@gmail.com", true ,"123", "64771822806eca2700dc8b2c");
-        /*    userRepository.saveAll(testUser);*/
+          userRepository.saveAll(testUser);
     userRepository.save(user1);
     List<Product> products = productFactory.get(50);
     productRepository.saveAll(products);
@@ -71,6 +72,7 @@ public class Seeder implements CommandLineRunner {
 
 }
 
+*/
 
 
 
