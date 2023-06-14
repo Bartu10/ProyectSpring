@@ -53,7 +53,9 @@ public class Seeder implements CommandLineRunner {
         Random random = new Random();
         Faker faker = new Faker();
     User user1 = new User("javi", "bartu", "javi@gmail.com", true ,"123", "64771822806eca2700dc8b2c");
+    User notLogged = new User("notLogged", "notLogged", "notLogged@gmail.com", false ,"notLogged", "64771822806eca2700dc8b2c");
     userRepository.save(user1);
+    userRepository.save(notLogged);
     List<Product> products = productFactory.get(50);
     productRepository.saveAll(products);
     List<Order> orders = orderFactory.get(20, user1);
