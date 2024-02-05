@@ -5,9 +5,9 @@ services:
     image: postgres
     restart: always
     environment:
-      - POSTGRES_USER=posgree_tfg_user
-      - POSTGRES_PASSWORD=GANCVzIwMK5d4i5F8MWOMoBprbmNHqpY
-      - POSTGRES_DB=posgree_tfg
+      - POSTGRES_USER=postgretfg_user
+      - POSTGRES_PASSWORD=nVAqjkOJ00gXd799hilNSHcVmhRJXQap
+      - POSTGRES_DB=postgretfg
 
   pgadmin:
     image: dpage/pgadmin4
