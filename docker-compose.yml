@@ -4,11 +4,13 @@ services:
   postgres:
     image: postgres
     restart: always
+    ports:
+      - "5432:5432"
     environment:
-      - POSTGRES_USER=postgretfg_user
-      - POSTGRES_PASSWORD=nVAqjkOJ00gXd799hilNSHcVmhRJXQap
-      - POSTGRES_DB=postgretfg
-
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=bartu
+      - POSTGRES_PASSWORD=bartu
+      - POSTGRES_DB=bartuDB
   pgadmin:
     image: dpage/pgadmin4
     environment:
