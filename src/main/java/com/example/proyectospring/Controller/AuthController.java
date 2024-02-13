@@ -4,6 +4,7 @@ import com.example.proyectospring.Services.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,12 @@ public class AuthController {
 
     public AuthController(TokenService tokenService) {
         this.tokenService = tokenService;
+    }
+
+
+    @GetMapping("/test")
+    public String test(){
+        return "Backend Activado";
     }
 
     @PostMapping("/token")
