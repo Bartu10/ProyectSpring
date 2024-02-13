@@ -20,12 +20,6 @@ public class AuthController {
         this.tokenService = tokenService;
     }
 
-
-    @GetMapping("/test")
-    public String test(){
-        return "Backend Activado";
-    }
-
     @PostMapping("/token")
     public String token(Authentication authentication) {
         LOG.debug("Token requested for user: '{}'", authentication.getName());
