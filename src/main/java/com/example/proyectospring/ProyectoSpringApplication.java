@@ -1,6 +1,5 @@
 package com.example.proyectospring;
 
-import com.example.proyectospring.config.RsaKeyProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
-@EnableConfigurationProperties(RsaKeyProperties.class)
 @SpringBootApplication
 public class ProyectoSpringApplication {
 
